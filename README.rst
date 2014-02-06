@@ -1,0 +1,19 @@
+Products.ECQuiz
+===============
+
+an add-on for the Plone content management system which allows the creation and delivery of multiple-choice tests.
+
+ECQuiz currently breaks in Plone 4.x, but we're working on fixing that (stay tuned).
+
+
+To use ECQuiz you need:
+
+#. A current Plone installation, specifically Plone 3.x; check
+   plone.org_ for details.
+
+#. The DataGridField_  product.  This version of ECQuiz has been
+   tested extensively with DataGridField version 1.6.  Newer
+   versions might or might not work as well.
+
+.. _plone.org :http://plone.org/products/plone
+.. _DataGridField: http://plone.org/products/datagridfield/
