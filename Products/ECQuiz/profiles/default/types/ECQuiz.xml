@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<object name="ECQuiz"
+    meta_type="Factory-based Type Information with dynamic views"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+
+  <property name="title">Quiz</property>
+  <property name="description">An online quiz.</property>
+  <property name="content_icon">ecq_quiz.png</property>
+  <property name="content_meta_type">ECQuiz</property>
+  <property name="product">ECQuiz</property>
+  <property name="factory">addECQuiz</property>
+  <property name="immediate_view">ecq_quiz_view</property>
+  <property name="global_allow">True</property>
+  <property name="filter_content_types">True</property>
+
+  <property name="allowed_content_types">
+   <element value="Folder" />
+   <element value="File" />
+   <element value="Image" />
+   <element value="ECQGroup" />
+   <element value="ECQExtendedTextQuestion" />
+   <element value="ECQMCQuestion" />
+   <element value="ECQRatingQuestion" />
+   <element value="ECQScaleQuestion" />
+   <element value="ECQReference" />
+   <element value="ECQResult" />
+  </property>
+  <property name="allow_discussion">False</property>
+
+  <property name="view_methods">
+   <element value="ecq_quiz_view" />
+  </property>
+  <property name="default_view_fallback">False</property>
+  <property name="default_view">ecq_quiz_view</property>
+
+  <alias from="(Default)" to="(dynamic view)" />
+  <alias from="index.html" to="(dynamic view)" />
+  <alias from="view" to="ecq_quiz_view" />
+  <alias from="edit" to="base_edit" />
+  <alias from="sharing" to="folder_localrole_form" />
+
+  <action 
+      title="View" 
+      action_id="view" 
+      category="object" 
+      condition_expr=""
+      url_expr="string:${object_url}/ecq_quiz_view" 
+      visible="True">
+    <permission value="View" />
+  </action>
+
+ <action 
+      title="Edit" 
+      action_id="edit" 
+      category="object" 
+      condition_expr=""
+      url_expr="string:${object_url}/edit" 
+      visible="True">
+    <!-- 
+    <permission value="ECQuiz: Grade Assignments" />  
+    -->
+    <permission value="Modify portal content" />
+  </action>
+ 
+  <!--
+  <action title="Properties" action_id="metadata" category="object"
+      condition_expr="" url_expr="string:${object_url}/properties"
+      visible="True">
+    <permission value="Modify portal content" />
+  </action>
+  -->
+ 
+  <action 
+      title="References" 
+      action_id="references" 
+      category="object"
+      condition_expr="object/archetype_tool/has_graphviz"
+      url_expr="string:${object_url}/reference_graph" 
+      visible="True">
+    <permission value="Modify portal content" />
+    <permission value="Review portal content" />
+  </action>
+
+  <!-- 
+  <action 
+      title="Folder Listing" 
+      action_id="folderlisting" 
+      category="folder"
+      condition_expr="object/isPrincipiaFolderish"
+      url_expr="string:${folder_url}/view" 
+      visible="False">
+    <permission value="View" />
+  </action>
+  -->
+ 
+  <action 
+      title="Quick edit" 
+      action_id="wiki_edit" 
+      category="object"
+      condition_expr="" 
+      url_expr="string:${object_url}/ecq_quiz_wiki_edit"
+      visible="True">
+    <permission value="Modify portal content" />
+  </action>
+ 
+  <action 
+      title="Import/Export" 
+      action_id="import_export" 
+      category="object"
+      condition_expr="" 
+      url_expr="string:${object_url}/ecq_quiz_import_export"
+      visible="True">
+    <permission value="Modify portal content" />
+  </action>
+
+  <action 
+      title="Results" 
+      action_id="results" 
+      category="object"
+      condition_expr="python:not (not here.getResultsDict())"
+      url_expr="string:${object_url}/ecq_quiz_results" 
+      visible="True">
+  </action>
+ 
+  <action 
+      title="Statistics" 
+      action_id="statistics" 
+      category="object"
+      condition_expr="python:here.haveDetailedScores()"
+      url_expr="string:${object_url}/ecq_quiz_statistics" 
+      visible="True">
+    <permission value="ECQuiz: Grade Assignments" />
+  </action>
+
+</object>

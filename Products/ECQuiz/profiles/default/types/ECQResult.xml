@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<object name="ECQResult"
+   meta_type="Factory-based Type Information with dynamic views"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title">Result</property>
+ <property name="description">A quiz result.</property>
+ <property name="content_icon">ecq_result.png</property>
+ <property name="content_meta_type">ECQResult</property>
+ <property name="product">ECQuiz</property>
+ <property name="factory">addECQResult</property>
+ <property name="global_allow">False</property>
+ <property name="filter_content_types">False</property>
+ <property name="allowed_content_types"/>
+ <property name="allow_discussion">False</property>
+
+ <property name="view_methods">
+  <element value="ecq_result_view"/>
+ </property>
+ <property name="default_view_fallback">False</property>
+ <property name="default_view">ecq_result_view</property>
+ <property name="immediate_view">ecq_result_view</property>
+
+ <alias from="(Default)" to="(dynamic view)"/>
+ <alias from="index.html" to="(dynamic view)"/>
+ <alias from="view" to="ecq_result_view"/>
+ <alias from="edit" to="base_edit"/>
+ <alias from="sharing" to="folder_localrole_form"/>
+
+ <action title="View" action_id="view" category="object" condition_expr=""
+    url_expr="string:${object_url}/ecq_result_view" visible="True">
+  <permission value="View"/>
+ </action>
+
+ <action title="Edit" action_id="edit" category="object"
+    condition_expr="python:0" url_expr="string:$object_url/edit"
+    visible="True">
+  <permission value="Modify portal content"/>
+ </action>
+
+ <!--  
+ <action title="Properties" action_id="metadata" category="object"
+    condition_expr="" url_expr="string:${object_url}/properties"
+    visible="True">
+  <permission value="Modify portal content"/>
+ </action>
+ -->
+ 
+ <action title="References" action_id="references" category="object"
+    condition_expr="object/archetype_tool/has_graphviz"
+    url_expr="string:${object_url}/reference_graph" visible="True">
+  <permission value="Modify portal content"/>
+  <permission value="Review portal content"/>
+ </action>
+ 
+ <action title="Grade" action_id="grade" category="object"
+    condition_expr="here/isGradable"
+    url_expr="string:$object_url/ecq_result_grade" visible="True">
+  <permission value="ECQuiz: Grade Assignments"/>
+ </action>
+ 
+ <!--  
+ <action title="External Edit" action_id="external_edit" category="object"
+    condition_expr="object/externalEditorEnabled"
+    url_expr="string:${object_url}/external_edit" visible="False">
+  <permission value="Modify portal content"/>
+ </action>
+ -->
+</object>

@@ -1,0 +1,19 @@
+TODO
+====
+
+# TODOs for release 1.4.x (201x-xx-xx)
+
+
+# TODOs for release 1.4 (2011-10-31)
+
+- Issue: ``You are not allowed to access 'getScoreForEdit' in this context`` 
+  while calling ``ECQScaleAnswer#getScoreForEdit`` as normal user in result 
+  view.
+
+- FIXMEs
+
+- Problem with InlineTextField - get() commented out
+
+- Problem with translation in ECQTool - commented out
+
+- Not sure how to specify the icon for the ECQTool

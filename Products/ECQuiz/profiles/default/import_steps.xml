@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<import-steps>
+
+  <import-step 
+      id="ECQuiz-GS-dependencies" 
+      handler="Products.ECQuiz.setuphandlers.installGSDependencies"
+      title="Dependend GS profiles for ECQuiz"
+      version="2011-09-02T16:14:22">
+    <dependency step="plone-final" />
+    Install Generic Setup profile dependencies for ECQuiz
+  </import-step>
+
+  <import-step 
+      id="ECQuiz-QI-dependencies" 
+      handler="Products.ECQuiz.setuphandlers.installQIDependencies"
+      title="Dependend QI installables for ECQuiz"
+      version="2011-09-02T16:17:21">
+    <dependency step="ECQuiz-GS-dependencies" />
+    Install quickinstaller dependencies for ECQuiz
+  </import-step>
+
+</import-steps>
+ 

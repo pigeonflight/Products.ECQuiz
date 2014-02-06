@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="portal_factory" meta_type="Plone Factory Tool">
+  <factorytypes>
+    <type portal_type="ECQGroup" />
+    <type portal_type="ECQMCQuestion" />
+    <type portal_type="ECQScaleQuestion" />
+    <type portal_type="ECQExtendedTextQuestion" />
+    <type portal_type="ECQMCAnswer" />
+    <type portal_type="ECQScaleAnswer" />
+    <type portal_type="ECQuiz" />
+    <type portal_type="ECQReference" />
+  </factorytypes>
+</object>

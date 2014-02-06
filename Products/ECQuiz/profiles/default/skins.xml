@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<object name="portal_skins">
+  
+  <object name="ECQuiz" meta_type="Filesystem Directory View" 
+    directory="Products.ECQuiz:skins/ECQuiz" />
+
+  <skin-path name="*">
+    <layer name="ECQuiz" insert-after="custom" />
+  </skin-path>
+
+</object>
+    

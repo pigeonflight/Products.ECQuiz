@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<object name="ECQScaleQuestion"
+   meta_type="Factory-based Type Information with dynamic views"
+   xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+ <property name="title">Scale Question</property>
+ <property
+    name="description">A question that asks the candidate to give a rating for
+      something.  'points', in this class, is the maximum rating. The
+      answers are the possible ratings (e.g. 'very good', 'OK',
+      'bad'). 'getCandidatePoints' returns which rating(s) has (have)
+      been selected.
+      </property>
+ <property name="content_icon">ecq_question.png</property>
+ <property name="content_meta_type">ECQScaleQuestion</property>
+ <property name="product">ECQuiz</property>
+ <property name="factory">addECQScaleQuestion</property>
+ <property name="immediate_view">ecq_scalequestion_view</property>
+ <property name="global_allow">False</property>
+ <property name="filter_content_types">True</property>
+ <property name="allowed_content_types">
+  <element value="ECQScaleAnswer"/>
+ </property>
+ <property name="allow_discussion">False</property>
+ <property name="default_view">ecq_scalequestion_view</property>
+ <property name="view_methods">
+  <element value="ecq_scalequestion_view"/>
+ </property>
+ <property name="default_view_fallback">False</property>
+ <alias from="(Default)" to="(dynamic view)"/>
+ <alias from="edit" to="atct_edit"/>
+ <alias from="index.html" to="(dynamic view)"/>
+ <alias from="properties" to="base_metadata"/>
+ <alias from="sharing" to="folder_localrole_form"/>
+ <alias from="view" to="ecq_scalequestion_view"/>
+ <action title="View" action_id="view" category="object" condition_expr=""
+    url_expr="string:${object_url}/ecq_scalequestion_view" visible="True">
+  <permission value="View"/>
+ </action>
+ <action title="Edit" action_id="edit" category="object" condition_expr=""
+    url_expr="string:${object_url}/edit" visible="True">
+  <permission value="Modify portal content"/>
+ </action>
+ <action title="Properties" action_id="metadata" category="object"
+    condition_expr="" url_expr="string:${object_url}/properties"
+    visible="True">
+  <permission value="Modify portal content"/>
+ </action>
+ <action title="References" action_id="references" category="object"
+    condition_expr="object/archetype_tool/has_graphviz"
+    url_expr="string:${object_url}/reference_graph" visible="True">
+  <permission value="Modify portal content"/>
+  <permission value="Review portal content"/>
+ </action>
+ <action title="Folder Listing" action_id="folderlisting" category="folder"
+    condition_expr="object/isPrincipiaFolderish"
+    url_expr="string:${folder_url}/view" visible="False">
+  <permission value="View"/>
+ </action>
+</object>

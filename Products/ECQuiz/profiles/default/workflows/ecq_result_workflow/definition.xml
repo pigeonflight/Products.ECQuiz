@@ -1,0 +1,325 @@
+<?xml version="1.0"?>
+<dc-workflow workflow_id="ecq_result_workflow"
+             title="Result Workflow [ECQ]"
+             state_variable="review_state"
+             initial_state="unsubmitted">
+ <permission>Access contents information</permission>
+ <permission>Manage properties</permission>
+ <permission>Modify portal content</permission>
+ <permission>View</permission>
+ <permission>List folder contents</permission>
+ <permission>ECQuiz Read Result</permission>
+ <permission>ECQuiz Write Result</permission>
+ <state state_id="graded" title="Graded">
+  <exit-transition transition_id="supersede"/>
+  <exit-transition transition_id="retract_pending"/>
+  <exit-transition transition_id="invalidate"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+  <permission-map name="ECQuiz Read Result" acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+  <permission-map name="ECQuiz Write Result"
+                  acquired="False">
+  </permission-map>
+  <permission-map name="List folder contents"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+  <permission-map name="Manage properties" acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="invalid" title="Invalid">
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="ECQuiz Read Result" acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="ECQuiz Write Result"
+                  acquired="False">
+  </permission-map>
+  <permission-map name="List folder contents"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="Manage properties" acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="pending" title="Pending">
+  <exit-transition transition_id="grade"/>
+  <exit-transition transition_id="supersede"/>
+  <exit-transition transition_id="invalidate"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+  <permission-map name="ECQuiz Read Result" acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+  <permission-map name="ECQuiz Write Result"
+                  acquired="False">
+  </permission-map>
+  <permission-map name="List folder contents"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+  <permission-map name="Manage properties" acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="superseded" title="Superseded">
+  <exit-transition transition_id="invalidate"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+  <permission-map name="ECQuiz Read Result" acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+  <permission-map name="ECQuiz Write Result"
+                  acquired="False">
+  </permission-map>
+  <permission-map name="List folder contents"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+  <permission-map name="Manage properties" acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Owner</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>ECQuizResultGrader</permission-role>
+   <permission-role>ECQuizResultViewer</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="unsubmitted" title="Not Submitted">
+  <exit-transition transition_id="submit_pending"/>
+  <exit-transition transition_id="submit_graded"/>
+  <exit-transition transition_id="invalidate"/>
+  <permission-map name="Access contents information"
+                  acquired="False">
+  </permission-map>
+  <permission-map name="ECQuiz Read Result" acquired="False">
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="ECQuiz Write Result"
+                  acquired="False">
+   <permission-role>Owner</permission-role>
+  </permission-map>
+  <permission-map name="List folder contents"
+                  acquired="False">
+  </permission-map>
+  <permission-map name="Manage properties" acquired="False">
+  </permission-map>
+  <permission-map name="Modify portal content"
+                  acquired="False">
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
+ </state>
+ <transition transition_id="grade" title="Grade a result"
+             new_state="graded" trigger="USER"
+             before_script="" after_script="">
+  <action url="" category="workflow">Grade</action>
+  <guard>
+   <guard-role>ECQuizResultGrader</guard-role>
+   <guard-role>Manager</guard-role>
+   <guard-expression>python:here.aq_parent.getCandidatePoints(here) is not None</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="invalidate"
+             title="Invalidate a result because the quiz has changed."
+             new_state="invalid" trigger="USER"
+             before_script="" after_script="">
+  
+  <guard>
+   <guard-expression>python: user.has_permission("Review portal content",         here.aq_parent) or         user.has_role("Owner", here.aq_parent)</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="retract_pending"
+             title="Result is reset to pending state"
+             new_state="pending" trigger="USER"
+             before_script="" after_script="">
+  <action url="" category="workflow">Retract</action>
+  <guard>
+   <guard-role>ECQuizResultGrader</guard-role>
+   <guard-role>Manager</guard-role>
+   <guard-expression>python:here.aq_parent.isTutorGraded(here)</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="submit_graded"
+             title="Submit a result and automatically grade it"
+             new_state="graded" trigger="USER"
+             before_script="" after_script="">
+  
+  <guard>
+   <guard-role>Owner</guard-role>
+   <guard-expression>python:not here.aq_parent.isTutorGraded(here)</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="submit_pending"
+             title="Submit a result and wait for tutor to grade it"
+             new_state="pending" trigger="USER"
+             before_script="" after_script="">
+  
+  <guard>
+   <guard-role>Owner</guard-role>
+   <guard-expression>python:here.aq_parent.isTutorGraded(here)</guard-expression>
+  </guard>
+ </transition>
+ <transition transition_id="supersede"
+             title="Replace a submission with a newer one"
+             new_state="superseded" trigger="USER"
+             before_script="" after_script="">
+  
+  <guard>
+   <guard-role>Owner</guard-role>
+   <guard-expression>python:here.aq_parent.isAllowRepetition()</guard-expression>
+  </guard>
+ </transition>
+ <variable variable_id="action" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>The last transition</description>
+  <default>
+   
+   <expression>transition/getId|nothing</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="actor" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>The ID of the user who performed the last transition</description>
+  <default>
+   
+   <expression>user/getUserName</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="comments" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Comments about the last transition</description>
+  <default>
+   
+   <expression>python:state_change.kwargs.get('comment', '')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="review_history" for_catalog="False"
+           for_status="False" update_always="False">
+  <description>Provides access to workflow history</description>
+  <default>
+   
+   <expression>state_change/getHistory</expression>
+  </default>
+  <guard>
+   <guard-permission>Request review</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </variable>
+ <variable variable_id="time" for_catalog="False"
+           for_status="True" update_always="True">
+  <description>Time of the last transition</description>
+  <default>
+   
+   <expression>state_change/getDateTime</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+</dc-workflow>

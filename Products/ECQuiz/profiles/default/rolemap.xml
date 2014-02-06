@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<rolemap>
+ <roles>
+  <role name="ECQuizResultGrader" />
+  <role name="ECQuizResultViewer" />
+ </roles>
+ <permissions>
+  <permission name="ECQuiz: Add Quiz" acquire="False">
+   <role name="Manager" />
+   <role name="Owner" />
+  </permission>
+  <permission name="ECQuiz: Grade Assignments" acquire="False">
+   <role name="Manager" />
+   <role name="ECQuizResultGrader" />
+  </permission>
+  <permission name="ECQuiz Read Result" acquire="False">
+   <role name="ECQuizResultViewer" />
+  </permission>
+ </permissions>
+</rolemap>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode:xml
+sgml-local-catalogs:("/usr/local/lib/sgml/XHTML11.cat")
+sgml-validate-command:"xmllint \\-\\-valid \\-\\-noout %s %s"
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+fill-column:79
+End:
+-->
