@@ -40,6 +40,11 @@ setup(name='Products.ECQuiz',
           # -*- Extra requirements: -*-
           'Products.DataGridField >= 1.6',
       ],
+      extras_require=dict(
+           test=[
+               'Products.PloneTestCase',
+               'zope.testing',
+           ]),
       entry_points="""
       # -*- Entry points: -*-
       """,
