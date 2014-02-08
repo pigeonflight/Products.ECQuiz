@@ -195,10 +195,11 @@ def setTitle(obj, newTitle):
     # 'obj.reindexObject()' which forces an update of the view of the folder 
     # that contains 'obj' (or something to that effect).
     obj.setTitle(newTitle)
-    try:
-        obj.reindexObject()
-    except AttributeError:
-        pass
+    obj.reindexObject()
+    #try:
+    #    obj.reindexObject()
+    #except AttributeError:
+    #    pass
 
 from Products.Archetypes.Field import StringField
 from Products.Archetypes.Widget import IdWidget

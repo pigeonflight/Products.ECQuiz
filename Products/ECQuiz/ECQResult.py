@@ -38,6 +38,7 @@ from DateTime import DateTime
 from config import *
 from permissions import *
 from tools import *
+#from zope.component import createObject
 from ECQGroup import ECQGroup
 
 class QuestionResult(object):
@@ -639,8 +640,12 @@ class ECQResult(ATCTContent, HistoryAwareMixin):
 def createResult(context):
     """Create a new "ECQResult" object and initialize it."""
     retVal = createObject(context, ECQResult.portal_type)
+    # XXX Fixme... 
+    # complaining about AttributeError: 'ecqresult.xxxxx'
+#    wrapped = retVal.__of__(context)
+
     # for some obscure reason, this seems to be necessary
-    retVal.unsetAllCachedPoints()
+    # retVal.unsetAllCachedPoints()
     now = DateTime()
     #setTitle(retVal, retVal.Creator() + ' ' + str(now))
     mctool = getToolByName(context, 'ecq_tool')
