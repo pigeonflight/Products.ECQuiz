@@ -3,7 +3,7 @@ Products.ECQuiz
 
 an add-on for the Plone content management system which allows the creation and delivery of multiple-choice tests.
 
-ECQuiz currently breaks in Plone 4.x, but we're working on fixing that (stay tuned).
+ECQuiz 2.0 brings Plone 4.x compatibility and is known to work on Plone 4.3.x
 
 
 To use ECQuiz you need:
