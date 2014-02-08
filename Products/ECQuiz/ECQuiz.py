@@ -93,10 +93,14 @@ class ColumnI18N(Column):
 
     def getLabel(self, context, widget):
         """ User friendly name for the column """
-        return widget.translate(
+        if hasattr(widget, 'translate'):  # runtime
+            return widget.translate(
                     msgid   = self.label_msgid,
                     domain  = widget.i18n_domain,
                     default = self.label)
+        # this fix dodges the AttributeError: translate problem
+        else:  # tests
+            return self.label #"what should be here"
 
 class EvaluationScriptsWidget(TypesWidget):
     """ A custom widget for handling the 'evaluationScripts' 

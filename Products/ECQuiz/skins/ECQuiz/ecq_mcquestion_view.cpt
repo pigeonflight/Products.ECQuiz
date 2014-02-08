@@ -8,181 +8,117 @@
  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
  i18n:domain="ECQuiz"
  metal:use-macro="here/main_template/macros/master">
+ <!-- Bindings for all macros:
+ question
+ -->
  <body>
   <metal:import-css fill-slot="css_slot">
    <style type="text/css" media="screen" tal:content="string: @import url($portal_url/ecqstyles.css);">
    </style>
   </metal:import-css>
-  
-  <metal:fill fill-slot="main" tal:define="
-      template_id template/getId;
-      portal context/@@plone_portal_state/portal;
-      questionContainer python:here;
-  ">
-   
-   <!-- Show what the 'main' macro from base_view.pt has to say. -->
-   <!--metal:use use-macro="here/base_view/macros/main"/-->
-   
-   <div tal:replace="structure provider:plone.documentactions" />
-   
-   <h1 tal:content="here/title_or_id"/>
 
-   <metal:use use-macro="here/ecq_tools/macros/up_one_level">
-    Up one level
-   </metal:use>
-   
-   <form name="dummy" action="#" method="#">
-    <fieldset>
-     <tal:call-view-macro define="
-      result		python:here.maybeMakeResult();
-      suppressTitle	python:True;
-      inputDisabled	python:'yes';
-      ">
-      <metal:use use-macro="here/ecq_group_view/macros/view"/>
-     </tal:call-view-macro>
-    </fieldset>
-   </form>
-   
-   <div tal:replace="structure provider:plone.belowcontenttitle" />
-   
-   <!-- Hide the following statements. The only way to access them is via 
-        <metal:use use-macro="questionContainer/ecq_group_view/macros/view"/> 
-   -->
+  <metal:fill fill-slot="main" tal:define="template_id template/getId;">
+
+   <metal:use use-macro="here/ecq_basequestion_view/macros/edit_view" />
+
    <tal:condition condition="python:False">
-    
+    <!-- The following macros are not meant to actually be shown on this page.
+    It's just more convenient to define them here than elsewhere. -->
+
     <!-- Bindings for this macro:
     required:
-    questionContainer
-    headingLevel
+    question
     used if present:
-    headingLevel
     resultsView
     candidateId
-    showAll
-    elemNoToShow
     -->
-    <metal:block define-macro="view"
-     tal:define="global ecq_tool nocall:portal/ecq_tool;">
-     <tal:comment condition="python:False">
-      <!--
+    <metal:block define-macro="view">
+     <metal:use use-macro="question/ecq_selectionquestion_view/macros/view">
 
-      Check if user is a MANAGER.  If he is, editView' is True.
+      <metal:fill fill-slot="results">
+       <metal:use use-macro="question/ecq_pointsquestion_view/macros/show_results"/>
+      </metal:fill>
 
-      List all questions if 'editView' was requested.  Otherwise list only the
-      questions of the candidate's personal quiz.
+      <metal:fill fill-slot="additional_edit_info">
+       <metal:use use-macro="question/ecq_pointsquestion_view/macros/show_additional_edit_info"/>
+      </metal:fill>
       
-      If we're in one-question-per-page-mode ('showAll' == False) and
-      "questionContainer" is the Quiz, then "elemNoToShow" is the index of the
-      question in the Quiz that should be displayed.  If "questionContainer"
-      is not the Quiz but one of it's question groups, then "elemNoToShow"
-      has no meaning; question groups are always displayed in full.
-
-      -->
-     </tal:comment>
-
-     <tal:block define="
-      member        context/@@plone_portal_state/member;
-      candidateId   candidateId|python:'';
-      headingLevel  headingLevel|python:1;
-      suppressTitle suppressTitle|python:False;
-      resultsView   resultsView|python:False;
-      gradeView     gradeView|python:False;
-      showAllTmp    showAll|python:True;
-      showAll       python:showAllTmp or resultsView;
-
-      editView      python:(not resultsView) and here.userIsGrader(member);
-      questionsTmp  python:questionContainer.getQuestions(result);
-      questions     python:((questionContainer.portal_type == 'ECQuiz') and (not showAll) and [questionsTmp[elemNoToShow]]) or questionsTmp;
-      ">
-
-      <tal:comment condition="python:0">
-       <p tal:content="python:str(showAllTmp)"/>
-       <p tal:content="python:str(showAll)"/>
-       <p tal:content="python:str(questionsTmp)"/>
-       <p tal:content="python:str(questions)"/>
-      </tal:comment>
-      
-      <!-- Show Question Group Heading -->
-      <tal:block condition="python:(not suppressTitle) and (questionContainer.portal_type == 'MC Question Group')">
-       <tal:block condition="questionContainer/title_or_id"
-	define="headingText questionContainer/title_or_id;">
-	<metal:use use-macro="questionContainer/ecq_tools/macros/heading"/>
-       </tal:block>
-      </tal:block>
-      
-      <tal:block define="headingLevel python:headingLevel+1;">
-
-       <!-- Print Directions -->
-       <tal:block define="directions questionContainer/getDirections;">
-	<tal:condition condition="directions">
-	 <metal:block define-macro="print_directions">
-	  <!-- Bindings for this macro:
-	  questionContainer
-	  -->
-	  <div class="questionContainerDirectionsLabel">
-	   <strong tal:content="python: here.translate(
-	    domain=here.i18n_domain,
-	    msgid='directions',
-	    target_language=ecq_tool.getContentLang(here),
-	    default='Directions:')"/>
-	  </div>
-	  <div class="questionContainerDirections"
-           tal:content="structure directions">
-	   The direction text.
-	  </div>
-
-	  <metal:block define-macro="show_edit">
-	   <!-- Displays the 'Edit' link -->
-           <tal:if_manager condition="python:here.userIsManager(member)">
-	    (<a href="base_edit" 
-	     tal:attributes="href string:${questionContainer/absolute_url}/base_edit;" 
-	     i18n:domain="plone" 
-	     i18n:translate="Edit">Edit</a>)
-           </tal:if_manager>
-	  </metal:block>
-	 </metal:block>
-	</tal:condition>
-	<tal:condition condition="not: directions">
-	 <!-- If no directions are present, make sure the 'Edit' link 
-              is displayed anyway. -->
-	 <metal:use use-macro="questionContainer/ecq_group_view/macros/show_edit"/>
-	</tal:condition>                        
-       </tal:block>
-
-       <!-- Display the questions in a list -->
-       <tal:if_more_than_one_question condition="python:len(questions) != 1">
-        <ol>
-         <tal:repeat repeat="question questions">
-          <tal:define define="
-           isTutorGraded question/isTutorGraded|python:False;
-           object        python:question;
-           ">
-           <tal:unless_hide_in_grade_view condition="python: (not gradeView) or isTutorGraded">
-            <li>
-             <!-- Get the question's 'view' macro and use it. -->
-             <metal:use use-macro="here/ecq_tools/macros/use_default_view"/>
-            </li>
-           </tal:unless_hide_in_grade_view>
-          </tal:define>
-         </tal:repeat>
-        </ol>
-       </tal:if_more_than_one_question>
-       <tal:if_only_one_question condition="python:len(questions) == 1">
-        <div>
-         <tal:define define="
-          question	python:questions[0];
-          isTutorGraded	question/isTutorGraded|python:False;
-          object        python:question;
+      <metal:fill-main-slot fill-slot="main_slot">
+       <!-- List the answers -->
+       <table class="answers">
+        <tal:loop repeat="answer answers">
+         <tr tal:attributes="class repeat/answer/letter;">
+          <tal:block define="
+           checked     python:haveCandidateAnswer and (answer.getId() in candidateAnswer);
+           correct     answer/isCorrect;
+           showComment python:resultsView and ((checked and (not correct)) or ((not checked) and correct));
           ">
-          <tal:unless_hide_in_grade_view condition="python: (not gradeView) or isTutorGraded">
-           <!-- Get the question's 'view' macro and use it. -->
-           <metal:use use-macro="here/ecq_tools/macros/use_default_view"/>
-          </tal:unless_hide_in_grade_view>
-         </tal:define>
-        </div>
-       </tal:if_only_one_question>
-      </tal:block> <!-- headingLevel -->
-     </tal:block>
+           <metal:block define-macro="mark_wrong_answer_pre">
+            <tal:condition condition="resultsView">
+             <td valign="baseline" style="font-size:175%;">
+              <tal:block condition="python:checked and correct"
+               i18n:translate="answer_mark_correct">
+               <span style="color:green;">&#x2714;</span>
+              </tal:block>
+              <tal:block condition="python:checked and not correct"
+               i18n:translate="answer_mark_wrong">
+               <span style="color:red;">&#x2718;</span>
+              </tal:block>
+              <tal:block condition="python:correct and not checked"
+               i18n:translate="answer_mark_correct_not_selected">
+               <span style="color:gray;">&#x279C;</span>
+              </tal:block>
+             </td>
+            </tal:condition>
+           </metal:block>
+           <td class="letter" valign="baseline">(<span tal:replace="repeat/answer/letter"/>)</td>
+           <td valign="baseline">
+            <metal:use use-macro="question/ecq_selectionquestion_view/macros/show_input_element"/>
+           </td>
+           <td valign="baseline">
+            <!-- Output answer text and possibly a comment -->
+            <metal:use use-macro="question/ecq_selectionquestion_view/macros/show_answer"/>
+           </td>
+          </tal:block>
+         </tr>
+         <!-- Show another input field that allows the candidate to not select
+         anything for a multiple choice question. -->
+         <tr tal:attributes="class string:hide_dont_know" tal:condition="python: repeat['answer'].end and not question.isAllowMultipleSelection()"
+          tal:define="
+          checked python:not haveCandidateAnswer;
+          correct python:False;
+          ">
+          <metal:use use-macro="question/ecq_mcquestion_view/macros/mark_wrong_answer_pre"/>
+          <td valign="baseline"><span tal:replace="python: chr(ord(repeat['answer'].letter()) + 1)"/>)</td>
+          <td valign="baseline">
+           <input class="noborder" type="radio" name="name" value="I_DONT_KNOW" tal:attributes="
+            name     python:candidateId + '_' + question.UID() + ':list';
+            checked  python:['', 'checked'][checked];
+            disabled inputDisabled;
+            "/>
+          </td>
+          <td valign="baseline">
+           <span style="color:red;"
+            tal:attributes="style python:['', 'color:red;;'][not resultsView];"
+            tal:define="default string: I don't know. (The question will be evaluated as if you had given no answer.)"
+            tal:content="python: here.translate(domain=here.i18n_domain,
+            msgid='i_dont_know',
+            target_language=ecq_tool.getContentLang(here),
+            default=default)"/>
+           <tal:condition condition="resultsView">
+            [<span i18n:translate="false" tal:omit-tag="">false</span>]
+           </tal:condition>
+          </td>
+         </tr>
+        </tal:loop>
+       </table>
+      </metal:fill-main-slot>
+      
+      <metal:fill-grade-slot fill-slot="grade_input">
+       <metal:use use-macro="question/ecq_pointsquestion_view/macros/show_grade_input"/>
+      </metal:fill-grade-slot>
+
+     </metal:use>
     </metal:block>
 
    </tal:condition>
